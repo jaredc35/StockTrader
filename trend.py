@@ -1,5 +1,6 @@
 from alpha_vantage.timeseries import TimeSeries
 from alpha_vantage.techindicators import TechIndicators
+from environs import Env
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib import style
@@ -8,7 +9,9 @@ import numpy as np
 import pickle
 style.use('seaborn-whitegrid')
 
-api_key = process.env.ALPHA_VANTAGE_API
+env = Env()
+env.read_env() # Reads .env file
+api_key = env("ALPHA_VANTAGE_API")
 
 def get_stockdata(symbol, begin='1990-01-01'):
     ts = TimeSeries(key=api_key, output_format='pandas', indexing_type='date')
@@ -259,8 +262,8 @@ if __name__ == '__main__':
     df.drop(['volume'], 1, inplace=True)
 
     # print (df)
-    shortsma = 181
-    longsma = 182
+    shortsma = 10
+    longsma = 20
 
     # profit = profit_MAs(df, ticker, min=1, max =200)
     # with open('profitMA.pickle', 'wb') as f:

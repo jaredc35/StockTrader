@@ -7,6 +7,11 @@ import pandas_datareader as web
 import quandl
 import requests
 import bs4 as bs
+from environs import Env
+
+env = Env()
+env.read_env()
+api_key = env("QUANDL_API")
 
 def save_sp500_tickers():
     resp = requests.get('https://en.wikipedia.org/wiki/List_of_S%26P_500_companies')
@@ -107,7 +112,7 @@ def get_quandl_data(reload_sp500=False):
     Get the data from the free quandl stocks
     listed in their database
     '''
-    api_key = process.env.QUANDL_API
+
 
     # if reload_sp500:
     #     tickers = save_sp500_tickers()
